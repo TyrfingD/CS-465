@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
-let dbURI = 'mongodb://localhost/travlr';
+const host = process.env.DB_HOST || '127.0.0.1';
+const conn_uri = `mongodb://${host}/travlr`;
 
-if (process.env.NODE_ENV === 'production') {
-  dbURI = process.env.MONGODB_URI;
-}
-mongoose.connect(dbURI);
+const{seed} = require('./seed'); // Import seed.js
+
+require('./trips'); // Register models
 
 mongoose.connection.on('connected', () => {
-  console.log(`Mongoose connected to ${dbURI}`);
+  console.log(`Mongoose connected to ${conn_uri}`);
 });
 mongoose.connection.on('error', err => {
   console.log('Mongoose connection error:', err);
@@ -42,5 +42,9 @@ process.on('SIGTERM', () => {
   });
 });
 
-//bring mongoose schema
-require('./travlr');
+async function main() {
+    await mongoose.connect(conn_uri);
+    await seed(); // Seed the database after connection
+}
+
+main().catch(console.log);
