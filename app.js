@@ -1,19 +1,22 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const hbs = require('hbs');
 require('./app_api/models/db');
 
-var indexRouter = require('./app_server/routes/index');
-var usersRouter = require('./app_server/routes/users');
-var travelRouter = require('./app_server/routes/travel');
+const indexRouter = require('./app_server/routes/index');
+const usersRouter = require('./app_server/routes/users');
+const travelRouter = require('./app_server/routes/travel');
 const apiRouter = require('./app_api/routes/index');
 
-var app = express();
-
-require('./app_server/models/db');
+const app = express();
+const cors = require('cors');
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
@@ -33,6 +36,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/travel', travelRouter);
 app.use('/api', apiRouter);
+
+app.get('/', indexRouter);
+app.get('/travel', travel);
+app.use('/api', cors(corsOptions), apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
