@@ -4,7 +4,9 @@ const conn_uri = `mongodb://${host}/travlr`;
 
 const{seed} = require('./seed'); // Import seed.js
 
-require('./trips'); // Register models
+// Register models
+require('./trips');
+require('./user');
 
 mongoose.connection.on('connected', () => {
   console.log(`Mongoose connected to ${conn_uri}`);

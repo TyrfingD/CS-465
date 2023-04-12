@@ -1,10 +1,14 @@
+require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+
 const hbs = require('hbs');
 require('./app_api/models/db');
+require('./app_api/config/passport');
 
 const indexRouter = require('./app_server/routes/index');
 const usersRouter = require('./app_server/routes/users');
@@ -15,6 +19,7 @@ const app = express();
 const cors = require('cors');
 const corsOptions = {
   origin: 'http://localhost:4200',
+  methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
 }
 
@@ -35,9 +40,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/travel', travelRouter);
-app.use('/api', apiRouter);
 
 app.get('/', indexRouter);
+app.get('/contact', (req, res) => res.render('contact', {contactSelected: req.path == '/contact'}));
+app.get('/rooms', (req, res) => res.render('rooms', {roomsSelected: req.path == '/rooms'}));
+app.get('/meals', (req, res) => res.render('meals', {mealsSelected: req.path == '/meals'}));
+app.get('/news', (req, res) => res.render('news', {newsSelected: req.path == '/news'}));
+app.get('/about', (req, res) => res.render('about', {aboutSelected: req.path == '/about'}));
 app.get('/travel', travel);
 app.use('/api', cors(corsOptions), apiRouter);
 

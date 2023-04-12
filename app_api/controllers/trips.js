@@ -61,8 +61,30 @@ const updateTrip = async (req, res) => {
     }
 };
 
+const deleteTrip = async (req, res) => {
+    try {
+        if (!req.params.tripCode) {
+            // If no :tripCode is provided, send a 400 BAD REQUEST error
+            res.status(400).send(':tripCode is a required parameter');
+            return;
+        }
+
+        // deleteOne() returns 1 if successful, 0 if not
+        if ((await trips.deleteOne({ 'code': req.params.tripCode })) < 0) {
+            // No trip was found with :tripCode, return a 404 NOT FOUND error
+            res.status(404).send(`No trip found with tripCode ${req.params.tripCode}`);
+            return;
+        }
+
+        res.status(200).send();
+    } catch (e) {
+        res.status(500).json(e);
+    }
+};
+
 module.exports = {
     fetchTrips,
     addTrip,
-    updateTrip
+    updateTrip,
+    deleteTrip
 };
