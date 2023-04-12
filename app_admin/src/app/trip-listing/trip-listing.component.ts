@@ -26,4 +26,11 @@ export class TripListingComponent implements OnInit {
       this.router.navigate(['add-trip']);
     }
 
+    onTripDeleted(tripCode: string) {
+      this.tripsService.deleteTrip(tripCode).subscribe({
+          next: () => (this.trips = this.trips.filter((t) => t.code !== tripCode)),
+          error: (err) => console.log(err),
+      });
+    }
+
 }
