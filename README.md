@@ -1,7 +1,5 @@
 # CS-465
 
-Throughout this degree program I have been asked to use several different programming languages to solve a variety of tasks. Being able to perform full-stack development in this course with MEAN, each part of which is based on JavaScript at its core, was quite refreshing.
-
 The portion of this website that a user interacts with is composed of different views of a distinct page. 
 The work I have done on this website has been written in “node” JavaScript (node.js) notation, and the data is stored via the MongoDB database software, capping off the ‘M’ and the ‘N’ of MEAN stack development. Each of these letters represents a different JavaScript methodology. 
 
@@ -16,5 +14,3 @@ As I have learned throughout these modules, A single page application is fast be
 This led to the development of any API endpoints within the travlr at all. Prior to this additional functionality, someone viewing the website could not make changes to the trip listings without access to the raw html, instead of simply using buttons shown on the page (though I won’t claim it would be impossible to construct such functionality without an SPA, the process would be quite different).
 
 Testing the page's functionality simply involves opening the page, observing what is displayed, and attempting to fill the available fields and pressing the available buttons. It is a good idea to intentionally try to leave required fields blank or submit data in the wrong formats (like a non-image file type in an image submission), to test that errors are handled correctly. Such testing can often be automated by using a bot to issue simulated data, but care must be taken here. The login step can limit the function of bots (for good reason), and if your bot can automate or bypass this step then it represents a potential vulnerability to your security if someone else gains access to those functions.
-
-As the first half of the final step of my computer science program (along with the upcoming Full Stack Development 2 class), which seems to bring together many of the concepts I have been introduced to in earlier courses, this course represents my understanding of how software applications are designed, used, and maintained. While my dream job is not in software design, my hope is that this degree (and all the skills that come with it), will enhance my current Physics degree to make me more marketable towards a career in a scientific research field.
